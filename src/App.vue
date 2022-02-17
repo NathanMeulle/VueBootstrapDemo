@@ -2,22 +2,37 @@
   <div id="app">
    <Navbar :logoUrl="'https://drive.google.com/uc?export=view&id=1IXY8IZai07UAj0yamXUTTy-RA8baWN2I'" 
    :NavbarTitle="'Sport'" 
-   :MenuItems="['Page1', 'Page2']"
+   :MenuItems="['Home', 'About']"
    :NavBarColor="'#a23'"
+   @swapComponent="loadComponent"
    />
     <div class="container">
-      <router-view />
+      <div :is="currentComponent"></div>
     </div>
   </div>
 </template>
 <script>
 import Navbar from './components/Navbar.vue'
-
+import Home from './views/Home.vue'
+import About from './views/About.vue'
 export default {
   name: 'App',
   components: {
     Navbar,
+    Home,
+    About
   },
+    data() {
+      return {
+        currentComponent: null,
+      }
+    },
+    methods: {
+    loadComponent: function(component)
+    {
+       this.currentComponent = component
+    }
+  }
 }
 </script>
 <style>
